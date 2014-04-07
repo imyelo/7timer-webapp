@@ -3,6 +3,45 @@
  */
 define(function (require, exports, module) {
   module.exports = function () {
+    var LeftAside = React.createClass({
+      render: function () {
+        return (
+          <aside className="left-aside"></aside>
+        );
+      }
+    });
+
+    var RightAside = React.createClass({
+      render: function () {
+        return (
+          <aside className="right-aside"></aside>
+        );
+      }
+    });
+
+    var Stage = React.createClass({
+      render: function () {
+        return (
+          <div className="stage"></div>
+        );
+      }
+    });
+
+    var App = React.createClass({
+      changeStage: function () {
+        
+      },
+      render: function () {
+        return (
+          <div className="app">
+            <LeftAside></LeftAside>
+            <Stage></Stage>
+            <RightAside></RightAside>
+          </div>
+        );
+      }
+    });
+
     var Layout = React.createClass({
       getInitialState: function () {
         return {title: 'title'};
@@ -16,17 +55,21 @@ define(function (require, exports, module) {
       },
       render: function () {
         return (
-            <div className="layout">
-              <header>{this.state.title}</header>
-              <div className="content">{this.props.children}</div>
-              <footer></footer>
-            </div>
-          );
+          <div className="layout">
+            <header>{this.state.title}</header>
+            <div className="content">{this.props.children}</div>
+            <footer></footer>
+          </div>
+        );
       }
     });
+    // React.renderComponent(
+    //   <Layout>content</Layout>,
+    //   document.getElementById('main')
+    //   );
     React.renderComponent(
-      <Layout>content</Layout>,
+      <App></App>,
       document.getElementById('main')
-      );
+    );
   };
 });

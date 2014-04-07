@@ -7,6 +7,8 @@ define(function (require, exports, module) {
 
   app.start();
 
+  require('./view/layout/main')();
+
   window.app = app;
 
   console.log(app);
