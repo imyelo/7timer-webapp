@@ -3,6 +3,7 @@
  */
 define(function (require, exports, module) {
   var cityDao = require('app/dao/city');
+  var app = require('app/core/app');
 
   var searchBar = React.createClass({
     handleSearch: function () {
@@ -25,6 +26,7 @@ define(function (require, exports, module) {
 
   var cityItem = React.createClass({
     handleClick: function () {
+      app.store.set('city', this.props);
       console.log(this.props.name, this.props.longitude, this.props.latitude);
     },
     render: function () {

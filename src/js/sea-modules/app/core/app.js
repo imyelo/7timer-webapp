@@ -5,10 +5,6 @@ define(function (require, exports, module) {
   var _ = require('underscore');
   var Backbone = require('backbone');
 
-  var use = require('./router').use;
-  var getRouter = require('./router').getRouter;
-  var routes = require('app/route');
-
   var App = function () {
     return this;
   };
@@ -17,12 +13,9 @@ define(function (require, exports, module) {
 
   App.prototype.cache = new Cache();
 
+  App.prototype.loadRoute = require('./router').load;
+
   App.prototype.start = function () {
-    var Router;
-    // load routes
-    routes(use);
-    Router = getRouter();
-    new Router();
     Backbone.history.start();
   };
 

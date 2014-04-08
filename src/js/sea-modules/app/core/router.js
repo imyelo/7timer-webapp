@@ -45,6 +45,15 @@ define(function (require, exports, module) {
     });
   };
 
+  var load = function (routes) {
+    var Router;
+    // load routes
+    routes(use);
+    Router = getRouter();
+    new Router();
+  };
+
   exports.use = use;
   exports.getRouter = getRouter;
+  exports.load = load;
 });
