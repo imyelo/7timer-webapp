@@ -21,21 +21,42 @@ define(function (require, exports, module) {
 
     var Stage = React.createClass({displayName: 'Stage',
       render: function () {
+        var cx = React.addons.classSet;
+        var classes = cx({
+          stage: true,
+          isShow: this.props.isShow
+        });
         return (
-          React.DOM.div( {className:"stage"})
+          React.DOM.div( {className:classes}, React.DOM.div(null, this.props.children))
         );
       }
     });
 
     var App = React.createClass({displayName: 'App',
-      changeStage: function () {
-        
+      getInitialState: function() {
+        return {stage: ''};
+      },
+      stage: function (stg) {
+        this.setState({stage: stg});
+      },
+      componentWillMount: function () {
+        var stages = this.props.children;
+        var i = 0;
+        setInterval(function () {
+          this.setState({stage: stages[i = ++i % stages.length]});
+        }.bind(this), 400);
       },
       render: function () {
+        var currentStage = this.state.stage;
+        var stages = this.props.children.map(function (stage) {
+          return (
+            Stage( {isShow:currentStage === stage}, stage)
+          );
+        });
         return (
           React.DOM.div( {className:"app"}, 
             LeftAside(null),
-            Stage(null),
+            stages,
             RightAside(null)
           )
         );
@@ -67,9 +88,11 @@ define(function (require, exports, module) {
     //   <Layout>content</Layout>,
     //   document.getElementById('main')
     //   );
-    React.renderComponent(
-      App(null),
-      document.getElementById('main')
-    );
+    //   
+    var stage = ['main.enter', 'city.list', 'city.search', 'city.result'];
+    // React.renderComponent(
+    //   <App>{stage}</App>,
+    //   document.getElementById('main')
+    // );
   };
-});
+}); 

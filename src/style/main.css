@@ -1,0 +1,10 @@
+.stage {
+  transition: all 0.9s ease;
+  opacity: 0;
+  -webkit-transform: translate3d(0,0,320px) perspective(400px) rotateY(10deg);
+}
+
+.isShow {
+  opacity: 1;
+  -webkit-transform: translate3d(0,0,0) perspective(0) rotateY(0);
+}

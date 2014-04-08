@@ -21,21 +21,42 @@ define(function (require, exports, module) {
 
     var Stage = React.createClass({
       render: function () {
+        var cx = React.addons.classSet;
+        var classes = cx({
+          stage: true,
+          isShow: this.props.isShow
+        });
         return (
-          <div className="stage"></div>
+          <div className={classes}><div>{this.props.children}</div></div>
         );
       }
     });
 
     var App = React.createClass({
-      changeStage: function () {
-        
+      getInitialState: function() {
+        return {stage: ''};
+      },
+      stage: function (stg) {
+        this.setState({stage: stg});
+      },
+      componentWillMount: function () {
+        var stages = this.props.children;
+        var i = 0;
+        setInterval(function () {
+          this.setState({stage: stages[i = ++i % stages.length]});
+        }.bind(this), 400);
       },
       render: function () {
+        var currentStage = this.state.stage;
+        var stages = this.props.children.map(function (stage) {
+          return (
+            <Stage isShow={currentStage === stage}>{stage}</Stage>
+          );
+        });
         return (
           <div className="app">
             <LeftAside></LeftAside>
-            <Stage></Stage>
+            {stages}
             <RightAside></RightAside>
           </div>
         );
@@ -67,9 +88,11 @@ define(function (require, exports, module) {
     //   <Layout>content</Layout>,
     //   document.getElementById('main')
     //   );
-    React.renderComponent(
-      <App></App>,
-      document.getElementById('main')
-    );
+    //   
+    var stage = ['main.enter', 'city.list', 'city.search', 'city.result'];
+    // React.renderComponent(
+    //   <App>{stage}</App>,
+    //   document.getElementById('main')
+    // );
   };
-});
+}); 
