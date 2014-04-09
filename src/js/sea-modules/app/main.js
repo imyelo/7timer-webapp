@@ -3,16 +3,14 @@ define(function (require, exports, module) {
   var $ = require('zepto');
   var app = require('app/core/app');
   var route = require('app/route');
+  var view = require('app/view');
 
   Backbone.$ = $;
 
   app.loadRoute(route);
   app.start();
 
-  var views = {
-    'city.search': require('app/view/city').search
-  };
-  require('app/core/view').render(views);
+  app.loadView(view);
 
   window.app = app;
 

@@ -15,6 +15,8 @@ define(function (require, exports, module) {
 
   App.prototype.loadRoute = require('./router').load;
 
+  App.prototype.loadView = require('./view').render;
+
   App.prototype.start = function () {
     Backbone.history.start();
   };
