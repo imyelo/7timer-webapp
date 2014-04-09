@@ -4,6 +4,7 @@
 define(function (require, exports, module) {
   var cityDao = require('app/dao/city');
   var app = require('app/core/app');
+  var Region = require('app/core/view').Region;
 
   var searchBar = React.createClass({
     handleSearch: function () {
@@ -50,6 +51,7 @@ define(function (require, exports, module) {
   });
 
   var searchView = React.createClass({
+    mixins: [Region],
     getInitialState: function() {
       return {cities: []};
     },
@@ -60,8 +62,12 @@ define(function (require, exports, module) {
       });
     },
     render: function () {
+      var classes = React.addons.classSet({
+        "search-view": true,
+        "visible": this.state.visible
+      });
       return (
-        <section className="search-view">
+        <section className={classes}>
           <searchBar onSearch={this.search}></searchBar>
           <cityList cities={this.state.cities}></cityList>
         </section>
@@ -69,10 +75,12 @@ define(function (require, exports, module) {
     }
   });
 
-  exports.search = function (el) {
-    React.renderComponent(
-      <searchView></searchView>,
-      el
-    );
-  };
+  // exports.search = function (el) {
+  //   React.renderComponent(
+  //     <searchView></searchView>,
+  //     el
+  //   );
+  // };
+
+  exports.search = searchView;
 });

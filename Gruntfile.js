@@ -11,6 +11,17 @@ module.exports = function(grunt) {
       }
     },
     react: {
+      core: {
+        files: [
+          {
+            expand: true,
+            cwd: 'src/js/sea-modules/app/core/',
+            src: ['**/*.jsx'],
+            dest: 'src/js/sea-modules/app/core/',
+            ext: '.js'
+          }
+        ]
+      },
       view: {
         files: [
           {
@@ -24,9 +35,13 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      react: {
+      reactCore: {
+        files: path.join(process.cwd(), './src/js/sea-modules/app/core/**/*.jsx'),
+        tasks: ['react:core']
+      },
+      reactView: {
         files: path.join(process.cwd(), './src/js/sea-modules/app/view/**/*.jsx'),
-        tasks: ['react']
+        tasks: ['react:view']
       },
       js: {
         files: path.join(process.cwd(), './src/js/**/*.js'),

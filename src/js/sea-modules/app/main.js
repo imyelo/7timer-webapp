@@ -9,7 +9,10 @@ define(function (require, exports, module) {
   app.loadRoute(route);
   app.start();
 
-  // require('./view/layout/main')();
+  var views = {
+    'city.search': require('app/view/city').search
+  };
+  require('app/core/view').render(views);
 
   window.app = app;
 
